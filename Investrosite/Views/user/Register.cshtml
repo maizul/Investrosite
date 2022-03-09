@@ -1,0 +1,53 @@
+﻿@model Investrosite.Models.Database.Entrepreneur
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+
+<div class="register_page">
+    <div class="register_body">
+        <form method="POST" action="/user/Register">
+
+            <div class="mb-3">
+                <label for="formGroupExampleInput" class="form-label">Full Name :</label>
+                <input type="text" name="Name" class="form-control" id="formGroupExampleInput">
+
+
+            </div>
+            <div class="mb-3">
+                <label for="formGroupExampleInput" class="form-label" style="margin-top: 20px">Email :</label>
+                <input type="text" name="Email" class="form-control" id="formGroupExampleInput">
+
+
+            </div>
+            <div class="mb-3">
+                <label for="formGroupExampleInput" class="form-label" style="margin-top: 20px">Phone :</label>
+                <input type="text" name="Phone" class="form-control" id="formGroupExampleInput">
+
+
+            </div>
+
+            <div class="mb-3" style="margin-top: 20px">
+                <label for="formGroupExampleInput2" class="form-label">Password :</label>
+                <input type="password" name="Password" class="form-control" id="formGroupExampleInput2">
+
+
+            </div>
+            <div class="mb-3" style="margin-top: 20px">
+                <label for="formGroupExampleInput2" class="form-label">Confirm Password :</label>
+                <input type="password" class="form-control" id="formGroupExampleInput2">
+
+
+
+            </div>
+            <p>@ViewBag.Msg</p>
+            <input type="submit" name="submit" value="REGISTER" class="btn btn-primary login_button">
+            <div class="swap_between_login_register">
+                <p>Already have an account?</p>
+                <u><a href="">Sign in here</a></u>
+            </div>
+        </form>
+    </div>
+
+</div>
