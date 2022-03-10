@@ -27,5 +27,8 @@ namespace Investrosite.Models.Database
     
         public virtual DbSet<Entrepreneur> Entrepreneurs { get; set; }
         public virtual DbSet<Investor> Investors { get; set; }
+        public virtual DbSet<Manager> Managers { get; set; }
+        public virtual DbSet<Post> Posts { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

@@ -12,23 +12,20 @@ namespace Investrosite.Models.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class Entrepreneur
+    public partial class User
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Entrepreneur()
+        public User()
         {
-            this.Posts = new HashSet<Post>();
+            this.Entrepreneurs = new HashSet<Entrepreneur>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
         public string Email { get; set; }
-        public string Phone { get; set; }
         public string Password { get; set; }
-        public Nullable<int> uid { get; set; }
+        public string Role { get; set; }
     
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<Entrepreneur> Entrepreneurs { get; set; }
     }
 }

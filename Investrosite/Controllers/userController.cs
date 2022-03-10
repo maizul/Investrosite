@@ -49,6 +49,7 @@ namespace Investrosite.Controllers
                         select n).FirstOrDefault();
             if(data != null)
             {
+                Session["Name"] = data.Name.ToString();
                 ViewBag.Msg = "Append";
                 return RedirectToAction(actionName: "Index", controllerName: "Home"); 
             }

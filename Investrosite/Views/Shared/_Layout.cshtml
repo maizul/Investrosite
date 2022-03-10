@@ -9,35 +9,63 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <section>
+        <div class="Topbar">
+            <div class="top">
+                <p>We’re here to provide 24/7 at your service</p>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+            <div class="top">
+                <p><i class="fas fa-phone-alt"></i>01767145146 <i class="far fa-envelope"></i> ghuraghuri@gmail.com</p>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    </section>
+    <header>
+        <nav class="">
+            <ul class="nav-bar">
+                <li><a href="">Home</a></li>
+                <li><a href="">Packages</a></li>
+                <li><a href="">Events</a></li>
+                <li><a href="">Resort</a></li>
+                <li><a href="">ShopHobe</a></li>
+                <li><a href="">RentHobe</a></li>
+                <li><a href="">Contact Us</a></li>
+                @if (Session["Name"] != null)
+                {
+                    <ul class="nav navbar-nav  ">
+                        <div class="dropdown">
+                            <button class="btn" type="button" data-toggle="dropdown">
+                                @Session["Name"].ToString()
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{route('editprofile')}}">My Profile</a></li>
+                            </ul>
+                        </div>
+                    </ul>
+                }
+                else
+                {
+                    <li><a class="btn" href=""><span></span>Sign in</a></li>
+                }
+            </ul>
+
+            
+
+
+
+        </nav>
+        
+        
+        
+    </header>
+    @RenderBody()
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
+    
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>
