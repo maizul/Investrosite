@@ -17,6 +17,7 @@ namespace Investrosite.Models.Database
         public int Id { get; set; }
         public string Description { get; set; }
         public Nullable<int> eid { get; set; }
+        public string Name { get; set; }
     
         public virtual Entrepreneur Entrepreneur { get; set; }
     }
