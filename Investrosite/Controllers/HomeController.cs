@@ -12,11 +12,19 @@ namespace Investrosite.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            investrositeEntities1 db = new investrositeEntities1();
+            var data = db.Posts.ToList();
+            return View(data);
+        }
+        [HttpGet]
+        public ActionResult post()
+        {
+            return View(new Post());
         }
         [HttpPost]
-        public ActionResult Index(Post post)
+        public ActionResult post(Post post)
         {
+            
             if (ModelState.IsValid)
             {
                 investrositeEntities1 db = new investrositeEntities1();

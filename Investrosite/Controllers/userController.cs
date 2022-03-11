@@ -21,18 +21,39 @@ namespace Investrosite.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Register(Entrepreneur e)
+        public ActionResult Register(Entrepreneur e, Investor i)
         {
-            if (ModelState.IsValid)
+            if(e.Role== "Entrepreneur")
             {
-                investrositeEntities1 db = new investrositeEntities1();
-                db.Entrepreneurs.Add(e);
-                db.SaveChanges();
-                ViewBag.Msg = "Append";
-                return RedirectToAction(actionName: "Index", controllerName: "Home");
+                if (ModelState.IsValid)
+                {
+                    investrositeEntities1 db = new investrositeEntities1();
+                    db.Entrepreneurs.Add(e);
+                    db.SaveChanges();
+                    ViewBag.Msg = "Append";
+                    Session["Name"] = e.Name.ToString();
+                    return RedirectToAction(actionName: "Index", controllerName: "Home");
+                }
+                ViewBag.Msg = "Error";
+                return View();
             }
-            ViewBag.Msg = "Error";
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    investrositeEntities1 db = new investrositeEntities1();
+                    db.Investors.Add(i);
+                    db.SaveChanges();
+                    ViewBag.Msg = "Append";
+                    Session["Name"] = i.Name.ToString();
+                    return RedirectToAction(actionName: "Index", controllerName: "Home");
+                }
+                ViewBag.Msg = "Error";
+                return View();
+            }
+            ViewBag.Msg = "Error2";
             return View();
+            
         }
         [HttpGet]
         public ActionResult login()
@@ -50,6 +71,8 @@ namespace Investrosite.Controllers
             if(data != null)
             {
                 Session["Name"] = data.Name.ToString();
+                Session["Role"] = data.Role.ToString();
+                Session["Id"] = data.Id.ToString();
                 ViewBag.Msg = "Append";
                 return RedirectToAction(actionName: "Index", controllerName: "Home"); 
             }

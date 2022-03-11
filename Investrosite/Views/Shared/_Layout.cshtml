@@ -22,41 +22,42 @@
     <header>
         <nav class="">
             <ul class="nav-bar">
-                <li><a href="">Home</a></li>
-                <li><a href="">Packages</a></li>
-                <li><a href="">Events</a></li>
+                <li><a href="/home/index">Home</a></li>
+                @if (Session["Name"] != null)
+                {
+                    <li><a href="">My Profile</a></li>
+                    <li><a href="">My Post</a></li>
+                }
+
                 <li><a href="">Resort</a></li>
                 <li><a href="">ShopHobe</a></li>
                 <li><a href="">RentHobe</a></li>
                 <li><a href="">Contact Us</a></li>
-                @if (Session["Name"] != null)
-                {
-                    <ul class="nav navbar-nav  ">
-                        <div class="dropdown">
-                            <button class="btn" type="button" data-toggle="dropdown">
-                                @Session["Name"].ToString()
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{route('editprofile')}}">My Profile</a></li>
-                            </ul>
-                        </div>
+
+            </ul>
+        </nav>
+        @if (Session["Name"] != null)
+        {
+
+            <ul class="nav navbar-nav  ">
+                <div class="dropdown">
+                    <button class="btn" type="button" data-toggle="dropdown">
+                        @Session["Name"].ToString()
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{route('editprofile')}}">My Profile</a></li>
                     </ul>
-                }
-                else
-                {
-                    <li><a class="btn" href=""><span></span>Sign in</a></li>
-                }
+                </div>
             </ul>
 
-            
+        }
+        else
+        {
+            <li><a class="btn" href="/user/login">Sign in</a></li>
+        }
 
 
-
-        </nav>
-        
-        
-        
     </header>
     @RenderBody()
     <hr />

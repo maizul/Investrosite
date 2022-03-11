@@ -25,9 +25,8 @@ namespace Investrosite.Models.Database
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Password { get; set; }
-        public Nullable<int> uid { get; set; }
+        public string Role { get; set; }
     
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Post> Posts { get; set; }
     }
