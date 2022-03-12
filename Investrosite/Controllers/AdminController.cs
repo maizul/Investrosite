@@ -118,5 +118,75 @@ namespace Investrosite.Controllers
             ViewBag.Msg = "Error";
             return View();
         }
+
+        [HttpGet]
+        public ActionResult DeleteAdmin(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                investrositeEntities1 db = new investrositeEntities1();
+                var data = (from u in db.Admins
+                            where u.Id == id
+                            select u).FirstOrDefault();
+                db.Admins.Remove(data);
+                db.SaveChanges();
+                return RedirectToAction(actionName: "Adminlist", controllerName: "Admin");
+            }
+            return View();
+            
+        }
+
+        [HttpGet]
+        public ActionResult DeleteManager(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                investrositeEntities1 db = new investrositeEntities1();
+                var data = (from u in db.Managers
+                            where u.Id == id
+                            select u).FirstOrDefault();
+                db.Managers.Remove(data);
+                db.SaveChanges();
+                return RedirectToAction(actionName: "Managerlist", controllerName: "Admin");
+            }
+            return View();
+
+        }
+
+        [HttpGet]
+        public ActionResult DeleteEntrepreneur(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                investrositeEntities1 db = new investrositeEntities1();
+                var data = (from u in db.Entrepreneurs
+                            where u.Id == id
+                            select u).FirstOrDefault();
+                db.Entrepreneurs.Remove(data);
+                db.SaveChanges();
+                return RedirectToAction(actionName: "Entrepreneurlist", controllerName: "Admin");
+            }
+            return View();
+
+        }
+
+
+        [HttpGet]
+        public ActionResult DeleteInvestor(int id)
+        {
+            if (ModelState.IsValid)
+            {
+                investrositeEntities1 db = new investrositeEntities1();
+                var data = (from u in db.Investors
+                            where u.Id == id
+                            select u).FirstOrDefault();
+                db.Investors.Remove(data);
+                db.SaveChanges();
+                return RedirectToAction(actionName: "Investorlist", controllerName: "Admin");
+            }
+            return View();
+
+        }
+
     }
 }
