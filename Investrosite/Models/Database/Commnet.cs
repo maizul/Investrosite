@@ -12,21 +12,13 @@ namespace Investrosite.Models.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class Post
+    public partial class Commnet
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Post()
-        {
-            this.Commnets = new HashSet<Commnet>();
-        }
-    
         public int Id { get; set; }
-        public string Description { get; set; }
-        public Nullable<int> eid { get; set; }
+        public string Message { get; set; }
+        public Nullable<int> Pid { get; set; }
         public string Name { get; set; }
     
-        public virtual Entrepreneur Entrepreneur { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Commnet> Commnets { get; set; }
+        public virtual Post Post { get; set; }
     }
 }
