@@ -46,6 +46,14 @@ namespace Investrosite.Controllers
         }
 
         [HttpGet]
+        public ActionResult Adminlist()
+        {
+            investrositeEntities1 db = new investrositeEntities1();
+            var data = db.Admins.ToList();
+            return View(data);
+        }
+
+        [HttpGet]
         public ActionResult Entrepreneurlist()
         {
             investrositeEntities1 db = new investrositeEntities1();
@@ -85,6 +93,27 @@ namespace Investrosite.Controllers
                 db.SaveChanges();
                 ViewBag.Msg = "Added Successfully";
                 return RedirectToAction(actionName: "Managerlist", controllerName: "Admin");
+            }
+            ViewBag.Msg = "Error";
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult CreateAdmin()
+        {
+            return View(new Admin());
+        }
+        [HttpPost]
+        public ActionResult CreateAdmin(Admin add)
+        {
+
+            if (ModelState.IsValid)
+            {
+                investrositeEntities1 db = new investrositeEntities1();
+                db.Admins.Add(add);
+                db.SaveChanges();
+                ViewBag.Msg = "Added Successfully";
+                return RedirectToAction(actionName: "Adminlist", controllerName: "Admin");
             }
             ViewBag.Msg = "Error";
             return View();

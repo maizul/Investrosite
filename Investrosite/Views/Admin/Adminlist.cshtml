@@ -1,14 +1,14 @@
-﻿@model List<Investrosite.Models.Database.Manager>
+﻿@model List<Investrosite.Models.Database.Admin>
 @{
-    ViewBag.Title = "Managerlist";
+    ViewBag.Title = "Adminlist";
 }
 
-<center><h2>Manager List</h2></center>
+<center><h2>Admin List</h2></center>
 
 <div class="container mt-5">
     <div class="d-flex justify-content-center row">
         <div class="col-md-8">
-            <a class="btn btn-primary btn-sm shadow-none" href="/admin/CreateManager">Create Manager</a>
+            <a class="btn btn-primary btn-sm shadow-none" href="/admin/CreateAdmin">Create Admin</a>
             <table class="table table-bordered">
                 <tr>
                     <th> ID</th>
@@ -31,8 +31,8 @@
                         <td><a href="/Admin/delete/@p.Id">Delete</a></td>
                     </tr>
                 }
-                </table>
+            </table>
 
-            </div>
+        </div>
     </div>
- </div>
+</div>

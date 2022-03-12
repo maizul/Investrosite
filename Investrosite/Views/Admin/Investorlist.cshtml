@@ -3,33 +3,35 @@
     ViewBag.Title = "Investorlist";
 }
 
-<h2>Investor List</h2>
+<center><h2>Investor List</h2></center>
 
 <div class="container mt-5">
     <div class="d-flex justify-content-center row">
         <div class="col-md-8">
-            <tr>
-                <th> ID</th>
-                <th> Name</th>
-                <th> Email</th>
-                <th> Phone</th>
-                <th> Role</th>
-                <th></th>
-                <th></th>
-            </tr>
-            @foreach (var p in Model)
-            {
+            <table class="table table-bordered">
                 <tr>
-                    <td> @p.Id</td>
-                    <td> @p.Name</td>
-                    <td> @p.Email</td>
-                    <td> @p.Phone</td>
-                    <td> @p.Role</td>
-                    <!-- <td><a href="/Admin/Edit/@p.Id">Edit</a></td>
-                        <td><a href="/Admin/delete/@p.Id">Delete</a></td>-->
+                    <th> ID</th>
+                    <th> Name</th>
+                    <th> Email</th>
+                    <th> Phone</th>
+                    <th> Role</th>
+                    <th></th>
+                    <th></th>
                 </tr>
-            }
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td> @p.Id</td>
+                        <td> @p.Name</td>
+                        <td> @p.Email</td>
+                        <td> @p.Phone</td>
+                        <td> @p.Role</td>
+                        <td><a href="/Admin/Edit/@p.Id">Edit</a></td>
+                        <td><a href="/Admin/delete/@p.Id">Delete</a></td>
+                    </tr>
+                 }
+            </table>
 
-        </div>
+            </div>
     </div>
 </div>

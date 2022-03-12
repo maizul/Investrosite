@@ -280,6 +280,8 @@
     <Content Include="Views\Admin\Managerlist.cshtml" />
     <Content Include="Views\Admin\Investorlist.cshtml" />
     <Content Include="Views\Admin\CreateManager.cshtml" />
+    <Content Include="Views\Admin\Adminlist.cshtml" />
+    <Content Include="Views\Admin\CreateAdmin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
