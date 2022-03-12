@@ -5,6 +5,25 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="investrositeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'investrosite.dbo.Admins' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Admins">
+          <Property Name="Id" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" />
+        </EntityType>-->
+        <EntityType Name="Commnets">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="50" />
+          <Property Name="Pid" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Entrepreneurs">
           <Key>
             <PropertyRef Name="Id" />
@@ -25,6 +44,7 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Managers">
           <Key>
@@ -35,6 +55,16 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="Phone" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="nvarchar" MaxLength="50" />
+          <Property Name="Eid" Type="int" />
+          <Property Name="Iid" Type="int" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -45,6 +75,18 @@
           <Property Name="eid" Type="int" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Association Name="FK_Commnets_Post">
+          <End Role="Post" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="Commnets" Type="Self.Commnets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commnets">
+              <PropertyRef Name="Pid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Post_Post">
           <End Role="Entrepreneurs" Type="Self.Entrepreneurs" Multiplicity="0..1" />
           <End Role="Post" Type="Self.Post" Multiplicity="*" />
@@ -58,10 +100,16 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="investrositeModelStoreContainer">
+          <EntitySet Name="Commnets" EntityType="Self.Commnets" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Entrepreneurs" EntityType="Self.Entrepreneurs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Investors" EntityType="Self.Investors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Managers" EntityType="Self.Managers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Post" EntityType="Self.Post" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Commnets_Post" Association="Self.FK_Commnets_Post">
+            <End Role="Post" EntitySet="Post" />
+            <End Role="Commnets" EntitySet="Commnets" />
+          </AssociationSet>
           <AssociationSet Name="FK_Post_Post" Association="Self.FK_Post_Post">
             <End Role="Entrepreneurs" EntitySet="Entrepreneurs" />
             <End Role="Post" EntitySet="Post" />
@@ -92,6 +140,12 @@
             <End Role="Entrepreneur" EntitySet="Entrepreneurs" />
             <End Role="Post" EntitySet="Posts" />
           </AssociationSet>
+          <EntitySet Name="Commnets" EntityType="investrositeModel.Commnet" />
+          <EntitySet Name="Payments" EntityType="investrositeModel.Payment" />
+          <AssociationSet Name="FK_Commnets_Post" Association="investrositeModel.FK_Commnets_Post">
+            <End Role="Post" EntitySet="Posts" />
+            <End Role="Commnet" EntitySet="Commnets" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Investor">
           <Key>
@@ -102,6 +156,7 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Manager">
           <Key>
@@ -112,6 +167,7 @@
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Post">
           <Key>
@@ -122,6 +178,7 @@
           <Property Name="eid" Type="Int32" />
           <NavigationProperty Name="Entrepreneur" Relationship="investrositeModel.FK_Post_Post" FromRole="Post" ToRole="Entrepreneur" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Commnets" Relationship="investrositeModel.FK_Commnets_Post" FromRole="Post" ToRole="Commnet" />
         </EntityType>
         <Association Name="FK_Post_Post">
           <End Type="investrositeModel.Entrepreneur" Role="Entrepreneur" Multiplicity="0..1" />
@@ -132,6 +189,37 @@
             </Principal>
             <Dependent Role="Post">
               <PropertyRef Name="eid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Commnet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Pid" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Post" Relationship="investrositeModel.FK_Commnets_Post" FromRole="Commnet" ToRole="Post" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Eid" Type="Int32" />
+          <Property Name="Iid" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_Commnets_Post">
+          <End Type="investrositeModel.Post" Role="Post" Multiplicity="0..1" />
+          <End Type="investrositeModel.Commnet" Role="Commnet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Commnet">
+              <PropertyRef Name="Pid" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -156,6 +244,7 @@
           <EntitySetMapping Name="Investors">
             <EntityTypeMapping TypeName="investrositeModel.Investor">
               <MappingFragment StoreEntitySet="Investors">
+                <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -167,6 +256,7 @@
           <EntitySetMapping Name="Managers">
             <EntityTypeMapping TypeName="investrositeModel.Manager">
               <MappingFragment StoreEntitySet="Managers">
+                <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Phone" ColumnName="Phone" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -181,6 +271,26 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="eid" ColumnName="eid" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commnets">
+            <EntityTypeMapping TypeName="investrositeModel.Commnet">
+              <MappingFragment StoreEntitySet="Commnets">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Pid" ColumnName="Pid" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="investrositeModel.Payment">
+              <MappingFragment StoreEntitySet="Payments">
+                <ScalarProperty Name="Iid" ColumnName="Iid" />
+                <ScalarProperty Name="Eid" ColumnName="Eid" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

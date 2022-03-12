@@ -10,6 +10,9 @@
         <EntityTypeShape EntityType="investrositeModel.Manager" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="investrositeModel.Post" Width="1.5" PointX="3" PointY="4.125" />
         <AssociationConnector Association="investrositeModel.FK_Post_Post" />
+        <EntityTypeShape EntityType="investrositeModel.Commnet" Width="1.5" PointX="5.25" PointY="4.25" />
+        <EntityTypeShape EntityType="investrositeModel.Payment" Width="1.5" PointX="7.375" PointY="0.75" />
+        <AssociationConnector Association="investrositeModel.FK_Commnets_Post" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

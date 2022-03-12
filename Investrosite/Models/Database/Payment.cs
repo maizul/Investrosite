@@ -12,13 +12,11 @@ namespace Investrosite.Models.Database
     using System;
     using System.Collections.Generic;
     
-    public partial class Manager
+    public partial class Payment
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
-        public string Password { get; set; }
-        public string Role { get; set; }
+        public string Amount { get; set; }
+        public Nullable<int> Eid { get; set; }
+        public Nullable<int> Iid { get; set; }
     }
 }
