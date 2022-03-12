@@ -61,23 +61,67 @@ namespace Investrosite.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult login(Entrepreneur e)
+        public ActionResult login(Entrepreneur e, Investor i)
         {
             investrositeEntities1 db = new investrositeEntities1();
             var data = (from n in db.Entrepreneurs
                         where n.Password.Equals(e.Password) &&
-                        e.Email.Equals(e.Email)
+                        n.Email.Equals(e.Email)
                         select n).FirstOrDefault();
-            if(data != null)
+            var data1 = (from s in db.Investors
+                        where s.Password.Equals(i.Password) &&
+                        s.Email.Equals(i.Email)
+                        select s).FirstOrDefault();
+            if (data != null )
             {
                 Session["Name"] = data.Name.ToString();
                 Session["Role"] = data.Role.ToString();
-                Session["Id"] = data.Id.ToString();
+                Session["Id"] = data.Id;
                 ViewBag.Msg = "Append";
                 return RedirectToAction(actionName: "Index", controllerName: "Home"); 
             }
+            else if(data1 != null)
+            {
+                Session["Name"] = data1.Name.ToString();
+                Session["Role"] = data1.Role.ToString();
+                Session["Id"] = data1.Id;
+                ViewBag.Msg = "Append";
+                return RedirectToAction(actionName: "Index", controllerName: "Home");
+            }
             ViewBag.Msg = "Error";
             return View();
+        }
+        [HttpGet]
+        public ActionResult editprofile()
+        { 
+            investrositeEntities1 db = new investrositeEntities1();
+            var data = db.Entrepreneurs.Find(Session["Id"]);
+            return View(data);
+        }
+        [HttpPost]
+        public ActionResult editprofile(Entrepreneur e)
+        {
+            if (ModelState.IsValid)
+            {
+                investrositeEntities1 db = new investrositeEntities1();
+                var data = db.Entrepreneurs.Find(Session["Id"]);
+                db.Entry(data).CurrentValues.SetValues(e);
+                db.SaveChanges();
+                ViewBag.Msg = "Append";
+                Session["Name"] = data.Name.ToString();
+                Session["Role"] = data.Role.ToString();
+                Session["Id"] = data.Id;
+                return RedirectToAction(actionName: "Index", controllerName: "Home");
+            }
+            return View();
+        }
+        [HttpGet]
+        public ActionResult mypost()
+        {
+            investrositeEntities1 db = new investrositeEntities1();
+            var id = (int)Session["Id"];
+            var data = db.Posts.Where(n => n.eid==id).ToList();
+            return View(data);
         }
     }
 }
